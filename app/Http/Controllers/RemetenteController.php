@@ -15,12 +15,14 @@ class RemetenteController extends Controller
         // Recebe as notas da função buscarNotas
         $notas = $this->buscarNotas();
 
-        // Função para organizar as notas e fazer os cálculos
+        // Função para organizar as notas, fazer os cálculos e listas as notas organizadas
         $notasPorRemetente = $this->calcularInformacoes($notas);
 
-        return response()->json([
-            'notas_por_remetente' => $notasPorRemetente,
-        ], 200);
+        // Retorna a view com as notas dos remetentes para serem visualizadas em tela
+        return view('index', compact('notasPorRemetente'));
+        //return response()->json([
+        //   'notas_por_remetente' => $notasPorRemetente,
+        //], 200);
 
     }
 
@@ -110,6 +112,18 @@ class RemetenteController extends Controller
 
         // retorna os dias de atraso dos pedidos
         return $diasAtraso;
+    }
+
+    public function enviarNotas()
+    {
+        // Recupera as notas e organiza elas através da função calcularInformações
+        $notas = $this->buscarNotas();
+        $notasPorRemetente = $this->calcularInformacoes($notas);
+
+        // Retorna as notas em json para api
+        return response()->json([
+           'notas_por_remetente' => $notasPorRemetente,
+        ], 200);
     }
 
 }

@@ -14,10 +14,5 @@ use App\Http\Controllers\RemetenteController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/remetentes', [RemetenteController::class, 'index']);
-
+Route::get('/', [RemetenteController::class, 'index']); 
 
